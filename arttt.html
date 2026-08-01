@@ -1,0 +1,2885 @@
+<!DOCTYPE html>
+<html lang="sq" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART-FIX | Arkitekturë • Fasada • Interier • Eksterier</title>
+    <meta name="description" content="ART-FIX - Kompani profesionale e specializuar në fasada, lyerje dekorative, dizajn interieri & eksterieri dhe konsultim arkitektonik. Nga Hasan Shaqiri & Besam Shaqiri.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0A0A0A;
+            --bg-card: #151515;
+            --bg-light: #F5F3EE;
+            --text-dark: #0A0A0A;
+            --text-light: #F5F3EE;
+            --text-muted: #8E8E8E;
+            --accent: #B8A58B;
+            --accent-light: #D4C5B0;
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(0, 0, 0, 0.08);
+            
+            --font-heading: 'Manrope', sans-serif;
+            --font-editorial: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+
+            --transition-fast: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-slow: 1s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Sharp edges globally enforced */
+            --radius-sm: 0px;
+            --radius-md: 0px;
+            --radius-lg: 0px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0 !important; /* Absolute enforcement for clean, sharp edges throughout */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        body {
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        body.page-loaded {
+            opacity: 1;
+        }
+
+        /* --- TASTEFUL PAGE LOAD ANIMATION OVERLAY --- */
+        #page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #page-loader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-brand {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: var(--text-light);
+            position: relative;
+            animation: pulseText 1.8s ease-in-out infinite alternate;
+        }
+
+        .loader-brand span {
+            color: var(--accent);
+        }
+
+        @keyframes pulseText {
+            0% { opacity: 0.4; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input, select, textarea {
+            font: inherit;
+            background: none;
+            border: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- CUSTOM CURSOR (Desktop) --- */
+        @media (min-width: 1024px) {
+            .custom-cursor {
+                width: 8px;
+                height: 8px;
+                background-color: var(--accent);
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: transform 0.1s ease, width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+            }
+
+            .custom-cursor-follower {
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(184, 165, 139, 0.4);
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: transform 0.25s ease-out;
+            }
+
+            body.hovering a, body.hovering button, body.hovering .project-card {
+                cursor: pointer;
+            }
+
+            body.hovering .custom-cursor {
+                width: 16px;
+                height: 16px;
+                background-color: var(--text-light);
+            }
+
+            body.hovering .custom-cursor-follower {
+                width: 55px;
+                height: 55px;
+                border-color: var(--accent);
+            }
+        }
+
+        /* --- TYPOGRAPHY UTILITIES --- */
+        .font-editorial { font-family: var(--font-editorial); }
+        .font-heading { font-family: var(--font-heading); }
+        
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .heading-huge {
+            font-size: clamp(2.2rem, 5vw, 5.5rem);
+            line-height: 1.08;
+        }
+
+        .heading-large {
+            font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+            line-height: 1.15;
+        }
+
+        .heading-medium {
+            font-size: clamp(1.35rem, 2vw, 2.2rem);
+        }
+
+        .text-accent { color: var(--accent); }
+        .text-muted { color: var(--text-muted); }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .container { padding: 0 3rem; }
+        }
+
+        @media (min-width: 1200px) {
+            .container { padding: 0 4rem; }
+        }
+
+        /* --- BUTTONS & CTAS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-light);
+            border-color: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -5px rgba(184, 165, 139, 0.35);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border-color: var(--border-dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            background-color: rgba(184, 165, 139, 0.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- NAVBAR & REFINED MOBILE RWD --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.1rem;
+            transition: opacity var(--transition-fast);
+        }
+
+        .brand-logo:hover {
+            opacity: 0.85;
+        }
+
+        .brand-logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-container {
+                gap: 4.5rem; /* Enhanced spacing between elements */
+            }
+            .nav-links { 
+                display: flex; 
+                gap: 3rem; /* Expanded link spacing */
+            }
+            .brand-logo { 
+                font-size: 1.6rem;
+                margin-right: auto; /* Clean spacing separation */
+                margin-left: 3.5rem;
+            }
+        }
+
+        .nav-link {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-light);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--border-dark);
+            padding: 0.35rem 0.65rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(4px);
+        }
+
+        .lang-btn {
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .lang-btn.active {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .lang-divider {
+            color: var(--border-dark);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 1002;
+            padding: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .hamburger:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (min-width: 1024px) {
+            .hamburger { display: none; }
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--text-light);
+            transition: var(--transition-fast);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(3.25px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-3.25px) rotate(-45deg);
+        }
+
+        /* Mobile Layout Ordering */
+        @media (max-width: 1023px) {
+            .nav-container {
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+            }
+
+            .lang-switcher {
+                justify-self: start;
+            }
+
+            .brand-logo {
+                justify-self: center;
+            }
+
+            .nav-actions {
+                justify-self: end;
+            }
+        }
+
+        /* Refined Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 2rem 3rem 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            visibility: hidden;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .mobile-nav-link {
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            color: var(--text-light);
+            transition: var(--transition-fast);
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .mobile-menu.active .mobile-nav-link {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .mobile-menu.active .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(5) { transition-delay: 0.3s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(6) { transition-delay: 0.35s; }
+        .mobile-menu.active .mobile-nav-link:nth-child(7) { transition-delay: 0.38s; }
+
+        .mobile-nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.45) contrast(1.1);
+            transform: scale(1.05);
+            animation: heroZoom 20s infinite alternate linear;
+        }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.12); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            padding-top: 4rem;
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: clamp(0.95rem, 1.2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            animation: scrollLine 2s infinite ease-in-out;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* --- INTRO / BRAND STATEMENT --- */
+        .intro {
+            padding: 6rem 0;
+            background-color: var(--bg-dark);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .intro { padding: 8rem 0; }
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .intro-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+                align-items: center;
+                gap: 4rem;
+            }
+        }
+
+        .intro-statement {
+            font-size: clamp(1.6rem, 2.8vw, 2.8rem);
+            font-family: var(--font-heading);
+            font-weight: 300;
+            line-height: 1.3;
+            color: var(--text-light);
+        }
+
+        .intro-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            border-left: 2px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        /* --- SERVICES (Interactive Showcase) --- */
+        .services {
+            padding: 6rem 0;
+            background-color: var(--bg-card);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .services { padding: 8rem 0; }
+        }
+
+        .services-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .services-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .services-layout {
+                grid-template-columns: 1.1fr 0.9fr;
+                align-items: center;
+            }
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-dark);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .service-item:first-child {
+            border-top: 1px solid var(--border-dark);
+        }
+
+        .service-item.active, .service-item:hover {
+            padding-left: 0.8rem;
+            border-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.015);
+        }
+
+        .service-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .service-num {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-family: var(--font-heading);
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .service-title {
+            font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+            color: var(--text-light);
+            transition: var(--transition-fast);
+        }
+
+        .service-item.active .service-title {
+            color: var(--accent);
+        }
+
+        .service-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            max-width: 500px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .service-item.active .service-desc {
+            display: block;
+        }
+
+        .service-arrow {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+            transform: rotate(-45deg);
+        }
+
+        .service-item.active .service-arrow {
+            color: var(--accent);
+            transform: rotate(0deg);
+        }
+
+        .services-preview {
+            position: relative;
+            height: 480px;
+            width: 100%;
+            overflow: hidden;
+            display: none;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (min-width: 1024px) {
+            .services-preview { display: block; }
+        }
+
+        .preview-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .preview-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- REDESIGNED ELEGANT PORTFOLIO GALLERY --- */
+        .projects {
+            padding: 6rem 0;
+            background-color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .projects { padding: 8rem 0; }
+        }
+
+        .projects-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .projects-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .filter-btn {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.5rem 1.1rem;
+            border: 1px solid var(--border-dark);
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--bg-dark);
+            border-color: var(--accent);
+            background-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Gallery Grid Layout */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.75rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease, opacity 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
+            border-color: rgba(184, 165, 139, 0.4);
+        }
+
+        /* Asymmetric heights & spans on desktop */
+        @media (min-width: 1024px) {
+            .gallery-item:nth-child(1) { grid-column: span 7; height: 500px; }
+            .gallery-item:nth-child(2) { grid-column: span 5; height: 500px; }
+            .gallery-item:nth-child(3) { grid-column: span 4; height: 430px; }
+            .gallery-item:nth-child(4) { grid-column: span 4; height: 430px; }
+            .gallery-item:nth-child(5) { grid-column: span 4; height: 430px; }
+            .gallery-item:nth-child(6) { grid-column: span 6; height: 480px; }
+            .gallery-item:nth-child(7) { grid-column: span 6; height: 480px; }
+        }
+
+        @media (max-width: 1023px) {
+            .gallery-item { height: 380px; }
+        }
+
+        .gallery-img-wrap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+            filter: brightness(0.85);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+            filter: brightness(0.75);
+        }
+
+        .gallery-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(0deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 60%, rgba(10,10,10,0) 100%);
+            z-index: 2;
+            transform: translateY(8px);
+            transition: var(--transition-fast);
+        }
+
+        .gallery-item:hover .gallery-info {
+            transform: translateY(0);
+        }
+
+        .gallery-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .gallery-title {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 0.2rem;
+        }
+
+        .gallery-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .gallery-item.hide {
+            display: none !important;
+        }
+
+        /* --- LIGHTBOX GALLERY MODAL --- */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--border-dark);
+        }
+
+        .lightbox-modal.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-caption {
+            margin-top: 1.2rem;
+            text-align: center;
+        }
+
+        .lightbox-title {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            font-family: var(--font-heading);
+        }
+
+        .lightbox-sub {
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .lightbox-close, .lightbox-arrow {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            z-index: 2005;
+        }
+
+        .lightbox-close:hover, .lightbox-arrow:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-color: var(--accent);
+        }
+
+        .lightbox-close {
+            top: 2rem;
+            right: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .lightbox-prev {
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-next {
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-prev { left: 1rem; }
+            .lightbox-next { right: 1rem; }
+            .lightbox-close { top: 1rem; right: 1rem; }
+        }
+
+        /* --- REDESIGNED BEFORE / AFTER SECTION --- */
+        .comparison-section {
+            padding: 6rem 0;
+            background-color: var(--bg-card);
+        }
+
+        @media (min-width: 768px) {
+            .comparison-section { padding: 8rem 0; }
+        }
+
+        .comparison-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .ba-slider-wrapper {
+            max-width: 1050px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .ba-slider-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            max-height: 550px;
+            overflow: hidden;
+            user-select: none;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            touch-action: pan-y;
+        }
+
+        @media (max-width: 640px) {
+            .ba-slider-container {
+                aspect-ratio: 4 / 3;
+                max-height: 400px;
+            }
+        }
+
+        .ba-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .ba-after-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+            transition: width 0.05s linear;
+        }
+
+        .ba-after-wrap .ba-image {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--accent);
+            z-index: 5;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+            transition: left 0.05s linear;
+        }
+
+        .ba-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background-color: var(--accent);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            font-size: 0.85rem;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .ba-slider-container:hover .ba-button {
+            transform: translate(-50%, -50%) scale(1.08);
+            background-color: var(--accent-light);
+        }
+
+        .ba-label {
+            position: absolute;
+            top: 1.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            z-index: 4;
+            border: 1px solid var(--border-dark);
+            font-weight: 600;
+        }
+
+        .ba-label-before { right: 1.5rem; }
+        .ba-label-after { left: 1.5rem; }
+
+        @media (max-width: 640px) {
+            .ba-label {
+                top: 1rem;
+                padding: 0.3rem 0.7rem;
+                font-size: 0.65rem;
+            }
+            .ba-label-before { right: 1rem; }
+            .ba-label-after { left: 1rem; }
+        }
+
+        /* --- VIDEO BACKGROUND CONSULTATION SECTION --- */
+        .architect-section {
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            min-height: 600px;
+            border-top: 1px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) contrast(1.1);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.92) 100%);
+            z-index: 2;
+        }
+
+        .architect-container {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+        }
+
+        .architect-box {
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3.5rem 2rem;
+            background: rgba(15, 15, 15, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        @media (min-width: 768px) {
+            .architect-box { padding: 4.5rem 3.5rem; }
+        }
+
+        .architect-details h4 {
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-bottom: 0.2rem;
+        }
+
+        .architect-details p {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+
+        /* --- WORK PROCESS --- */
+        .process {
+            padding: 6rem 0;
+            background-color: var(--bg-card);
+        }
+
+        @media (min-width: 768px) {
+            .process { padding: 8rem 0; }
+        }
+
+        .process-header {
+            margin-bottom: 4rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: var(--border-dark);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--accent);
+            transition: height 0.1s linear;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-item {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+            }
+        }
+
+        .timeline-content {
+            position: relative;
+            width: 100%;
+            padding-left: 55px;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-content {
+                width: 44%;
+                padding-left: 0;
+            }
+            .timeline-item:nth-child(odd) .timeline-content { text-align: right; }
+        }
+
+        .timeline-node {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--accent);
+            z-index: 2;
+            transform: translateX(-50%);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-node { left: 50%; }
+        }
+
+        .step-number {
+            font-size: 2.2rem;
+            font-family: var(--font-heading);
+            color: var(--accent);
+            opacity: 0.5;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 0.6rem;
+        }
+
+        .step-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* METODOLOGJIA Premium Mobile RWD Steps Layout */
+        @media (max-width: 767px) {
+            .timeline {
+                padding-left: 0.5rem;
+            }
+            .timeline-line {
+                left: 18px;
+            }
+            .timeline-node {
+                left: 18px;
+                width: 14px;
+                height: 14px;
+                top: 1.5rem;
+                background-color: var(--accent);
+                border: 2px solid var(--bg-dark);
+                box-shadow: 0 0 0 4px rgba(184, 165, 139, 0.2);
+            }
+            .timeline-item {
+                margin-bottom: 2rem;
+            }
+            .timeline-content {
+                padding-left: 45px;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--border-dark);
+                padding: 1.5rem 1.5rem 1.5rem 2.8rem;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                transition: transform 0.4s ease, border-color 0.4s ease;
+            }
+            .timeline-content:hover {
+                border-color: rgba(184, 165, 139, 0.4);
+                transform: translateX(4px);
+            }
+            .step-number {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--accent);
+                opacity: 0.9;
+                letter-spacing: 0.15em;
+                margin-bottom: 0.3rem;
+            }
+            .step-title {
+                font-size: 1.15rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .step-desc {
+                font-size: 0.85rem;
+                line-height: 1.55;
+            }
+        }
+
+        /* --- MATERIALS / CRAFTSMANSHIP --- */
+        .materials {
+            padding: 6rem 0;
+            background-color: var(--bg-dark);
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .materials { padding: 8rem 0; }
+        }
+
+        .materials-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .materials-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .material-card {
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .material-card:hover {
+            border-color: rgba(184, 165, 139, 0.4);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .material-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .material-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .material-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.8rem;
+            background: linear-gradient(0deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+        }
+
+        .material-title {
+            font-size: 1.15rem;
+            color: var(--text-light);
+        }
+
+        /* --- WHY ART-FIX --- */
+        .why-us {
+            padding: 6rem 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        @media (min-width: 768px) {
+            .why-us { padding: 8rem 0; }
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2.5rem;
+            margin-top: 3.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .why-grid { grid-template-columns: repeat(5, 1fr); gap: 1.8rem; }
+        }
+
+        .why-item {
+            border-top: 1px solid var(--border-light);
+            padding-top: 1.5rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .why-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .why-number {
+            font-size: 1.8rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .why-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .why-desc {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* --- DRAMATIC CTA BANNER --- */
+        .cta-banner {
+            padding: 8rem 0;
+            position: relative;
+            background-color: var(--bg-dark);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .cta-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.25);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact {
+            padding: 6rem 0;
+            background-color: var(--bg-dark);
+        }
+
+        @media (min-width: 768px) {
+            .contact { padding: 8rem 0; }
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 0.9fr 1.1fr;
+            }
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .contact-detail-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        .contact-detail-value {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            transition: color var(--transition-fast);
+        }
+
+        a.contact-detail-value:hover {
+            color: var(--accent);
+        }
+
+        /* Form Feedback Messaging */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-dark);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-label {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus ~ .form-label,
+        .form-input:not(:placeholder-shown) ~ .form-label,
+        .form-textarea:focus ~ .form-label,
+        .form-textarea:not(:placeholder-shown) ~ .form-label {
+            top: -0.6rem;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        .form-select {
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .form-select option {
+            background-color: var(--bg-card);
+            color: var(--text-light);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-status {
+            padding: 0.9rem;
+            font-size: 0.85rem;
+            border: 1px solid transparent;
+            display: none;
+            text-align: center;
+        }
+
+        .form-status.success {
+            display: block;
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(184, 165, 139, 0.1);
+        }
+
+        .form-status.error {
+            display: block;
+            border-color: #e57373;
+            color: #e57373;
+            background: rgba(229, 115, 115, 0.1);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background-color: #050505;
+            padding: 5rem 0 2.5rem 0;
+            border-top: 1px solid var(--border-dark);
+            font-size: 0.85rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 1rem;
+            max-width: 320px;
+            font-size: 0.9rem;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+
+        .footer-link:hover {
+            color: var(--text-light);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom { flex-direction: row; }
+        }
+
+        .back-to-top {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .back-to-top:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- REFINED SMOOTH REVEAL ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            .hero-bg img { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE LOADER OVERLAY -->
+    <div id="page-loader">
+        <div class="loader-brand">ARTFIX<span>.</span></div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="custom-cursor-follower" id="cursor-follower"></div>
+
+    <!-- REFINED NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <!-- Left: Language Switcher -->
+            <div class="lang-switcher">
+                <span class="lang-btn active" id="lang-sq">AL</span>
+                <span class="lang-divider">/</span>
+                <span class="lang-btn" id="lang-en">EN</span>
+            </div>
+
+            <!-- Center: ARTFIX Logo -->
+            <a href="#" class="brand-logo">
+                ARTFIX<span>.</span>
+            </a>
+
+            <!-- Right: Desktop Links / Mobile Burger -->
+            <ul class="nav-links">
+                <li><a href="#ballina" class="nav-link active" data-sq="Ballina" data-en="Home">Ballina</a></li>
+                <li><a href="#rreth-nesh" class="nav-link" data-sq="Rreth Nesh" data-en="About">Rreth Nesh</a></li>
+                <li><a href="#sherbimet" class="nav-link" data-sq="Shërbimet" data-en="Services">Shërbimet</a></li>
+                <li><a href="#projektet" class="nav-link" data-sq="Projektet" data-en="Projects">Projektet</a></li>
+                <li><a href="#arkitektura" class="nav-link" data-sq="Arkitektura" data-en="Architecture">Arkitektura</a></li>
+                <li><a href="#procesi" class="nav-link" data-sq="Procesi" data-en="Process">Procesi</a></li>
+                <li><a href="#kontakt" class="nav-link" data-sq="Kontakt" data-en="Contact">Kontakt</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="hamburger" id="hamburger" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#ballina" class="mobile-nav-link" data-sq="Ballina" data-en="Home">Ballina</a></li>
+            <li><a href="#rreth-nesh" class="mobile-nav-link" data-sq="Rreth Nesh" data-en="About">Rreth Nesh</a></li>
+            <li><a href="#sherbimet" class="mobile-nav-link" data-sq="Shërbimet" data-en="Services">Shërbimet</a></li>
+            <li><a href="#projektet" class="mobile-nav-link" data-sq="Projektet" data-en="Projects">Projektet</a></li>
+            <li><a href="#arkitektura" class="mobile-nav-link" data-sq="Arkitektura" data-en="Architecture">Arkitektura</a></li>
+            <li><a href="#procesi" class="mobile-nav-link" data-sq="Procesi" data-en="Process">Procesi</a></li>
+            <li><a href="#kontakt" class="mobile-nav-link" data-sq="Kontakt" data-en="Contact">Kontakt</a></li>
+        </ul>
+        <div class="mobile-menu-actions">
+            <a href="#kontakt" class="btn btn-primary" style="width: 100%;" data-sq="Kërko Konsultim" data-en="Request Consultation">Kërko Konsultim</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="ballina">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop" alt="Luxury Architectural Villa">
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container hero-content">
+            <span class="section-label reveal" data-sq="ART-FIX • ARKITEKTURË • FASADA • INTERIER" data-en="ART-FIX • ARCHITECTURE • FAÇADE • INTERIOR">ART-FIX • ARKITEKTURË • FASADA • INTERIER</span>
+            <h1 class="heading-huge hero-title reveal" data-sq="Nga ideja.<br>Në dizajn.<br><span class='text-accent'>Në realitet.</span>" data-en="From concept.<br>To design.<br><span class='text-accent'>Into reality.</span>">
+                Nga ideja.<br>Në dizajn.<br><span class="text-accent">Në realitet.</span>
+            </h1>
+            <p class="hero-description reveal" data-sq="Fasada, lyerje dekorative dhe dizajn arkitektonik për hapësira që dallohen me elegancë dhe precizion." data-en="Façades, decorative painting, and architectural design for spaces defined by elegance and precision.">
+                Fasada, lyerje dekorative dhe dizajn arkitektonik për hapësira që dallohen me elegancë dhe precizion.
+            </p>
+            <div class="hero-actions reveal">
+                <a href="#projektet" class="btn btn-primary" data-sq="Shiko Projektet" data-en="View Projects">Shiko Projektet</a>
+                <a href="#kontakt" class="btn btn-outline" data-sq="Na Kontaktoni" data-en="Contact Us">Na Kontaktoni</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- INTRO / BRAND STATEMENT -->
+    <section class="intro" id="rreth-nesh">
+        <div class="container">
+            <span class="section-label reveal">ART-FIX</span>
+            <div class="intro-grid">
+                <h2 class="intro-statement reveal" data-sq="Ne nuk ndryshojmë vetëm hapësira.<br>Ne ndryshojmë mënyrën si ato <span class='text-accent'>ndihen</span>." data-en="We do not merely alter spaces.<br>We transform how they <span class='text-accent'>feel</span>.">
+                    Ne nuk ndryshojmë vetëm hapësira.<br>Ne ndryshojmë mënyrën si ato <span class="text-accent">ndihen</span>.
+                </h2>
+                <div class="intro-text reveal" data-sq="ART-FIX bashkon artin e mjeshtërisë me vizionin arkitektonik. Nën udhëheqjen e Hasan Shaqirit dhe arkitektit Besam Shaqiri, ne transformojmë fasada, ambiente të brendshme dhe struktura me materiale premium, ngjyra precize dhe balancë estetike." data-en="ART-FIX unites master craftsmanship with architectural vision. Under the leadership of Hasan Shaqiri and architect Besam Shaqiri, we transform façades, interiors, and structures using premium materials, precise color science, and aesthetic balance.">
+                    ART-FIX bashkon artin e mjeshtërisë me vizionin arkitektonik. Nën udhëheqjen e Hasan Shaqirit dhe arkitektit Besam Shaqiri, ne transformojmë fasada, ambiente të brendshme dhe struktura me materiale premium, ngjyra precize dhe balancë estetike.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="sherbimet">
+        <div class="container">
+            <div class="services-header reveal">
+                <span class="section-label" data-sq="ÇFARË BËJMË" data-en="WHAT WE DO">ÇFARË BËJMË</span>
+                <h2 class="heading-large" data-sq="Shërbimet tona të përzgjedhura" data-en="Our Curated Services">Shërbimet tona të përzgjedhura</h2>
+            </div>
+
+            <div class="services-layout">
+                <div class="services-list reveal">
+                    
+                    <div class="service-item active" data-index="0">
+                        <div class="service-meta">
+                            <span class="service-num">01</span>
+                            <h3 class="service-title" data-sq="Fasada & Eksterier" data-en="Façades & Exterior">Fasada & Eksterier</h3>
+                            <p class="service-desc" data-sq="Sisteme profesionale fasadash termo-izoluese për shtëpi dhe ndërtesa private apo komerciale me durueshmëri afatgjatë." data-en="Professional thermal insulation façade systems for residential and commercial buildings engineered for extreme durability.">Sisteme profesionale fasadash termo-izoluese për shtëpi dhe ndërtesa private apo komerciale me durueshmëri afatgjatë.</p>
+                        </div>
+                        <span class="service-arrow">→</span>
+                    </div>
+
+                    <div class="service-item" data-index="1">
+                        <div class="service-meta">
+                            <span class="service-num">02</span>
+                            <h3 class="service-title" data-sq="Lyerje & Dekorime" data-en="Painting & Decorative">Lyerje & Dekorime</h3>
+                            <p class="service-desc" data-sq="Tekstura dekorative luksoze, mikrocement, efekte mermeri dhe lyerje me precizion të lartë për mure me karakter." data-en="Luxury decorative wall textures, microcement, marble effects, and high-precision painting that gives walls distinct character.">Tekstura dekorative luksoze, mikrocement, efekte mermeri dhe lyerje me precizion të lartë për mure me karakter.</p>
+                        </div>
+                        <span class="service-arrow">→</span>
+                    </div>
+
+                    <div class="service-item" data-index="2">
+                        <div class="service-meta">
+                            <span class="service-num">03</span>
+                            <h3 class="service-title" data-sq="Dizajn Interieri" data-en="Interior Design">Dizajn Interieri</h3>
+                            <p class="service-desc" data-sq="Planifikim i harmonizuar i dritës, materialeve, mobilieve dhe koncepteve hapësinore për ambiente premium." data-en="Harmonized spatial planning of lighting, premium materials, custom furniture composition, and holistic aesthetics.">Planifikim i harmonizuar i dritës, materialeve, mobilieve dhe koncepteve hapësinore për ambiente premium.</p>
+                        </div>
+                        <span class="service-arrow">→</span>
+                    </div>
+
+                    <div class="service-item" data-index="3">
+                        <div class="service-meta">
+                            <span class="service-num">04</span>
+                            <h3 class="service-title" data-sq="Dizajn Eksterieri" data-en="Exterior Design">Dizajn Eksterieri</h3>
+                            <p class="service-desc" data-sq="Kompozim arkitektonik i fasadave, ndriçimit të jashtëm dhe identitetit pamor të objektit tuaj." data-en="Architectural composition of modern façades, exterior lighting schemes, and structural visual identity.">Kompozim arkitektonik i fasadave, ndriçimit të jashtëm dhe identitetit pamor të objektit tuaj.</p>
+                        </div>
+                        <span class="service-arrow">→</span>
+                    </div>
+
+                    <div class="service-item" data-index="4">
+                        <div class="service-meta">
+                            <span class="service-num">05</span>
+                            <h3 class="service-title" data-sq="Konsultim Arkitektonik" data-en="Architectural Consulting">Konsultim Arkitektonik</h3>
+                            <p class="service-desc" data-sq="Këshillim profesional nga arkitekti Besam Shaqiri para se të fillojë çdo punim ekzekutues." data-en="In-depth professional architectural consultation with Besam Shaqiri prior to structural execution.">Këshillim profesional nga arkitekti Besam Shaqiri para se të fillojë çdo punim ekzekutues.</p>
+                        </div>
+                        <span class="service-arrow">→</span>
+                    </div>
+
+                </div>
+
+                <div class="services-preview reveal">
+                    <img src="https://api.photon.aremedia.net.au/wp-content/uploads/sites/2/2026/06/metricon_vantage-48-las-palmas-facade-mountduneed-vic_w1920-6a1fbfac3d724.jpg?fit=1920%2C1407&amp;format=auto" class="preview-img active" alt="Fasada &amp; Exterior">
+                    <img src="https://lacasa.az/wp-content/uploads/2024/11/DSC00327-scaled-e1738176937332.jpg" class="preview-img" alt="Painting &amp; Decorative">
+                    <img src="https://res.cloudinary.com/dw4e01qx8/f_auto,q_auto/images/c0kbttkjbzi4t45fufle" class="preview-img" alt="Interior Design">
+                    <img src="https://cdn.bluent.com/images/3d-landscape-designs-banner.webp" class="preview-img" alt="Exterior Design">
+                    <img src="https://racontractor.net/wp-content/uploads/2025/04/service5.jpg" class="preview-img" alt="Architectural Consulting">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDESIGNED PORTFOLIO - SELECTED PROJECTS (WITH LIGHTBOX) -->
+    <section class="projects" id="projektet">
+        <div class="container">
+            <div class="projects-header reveal">
+                <div>
+                    <span class="section-label" data-sq="PORTOFOLI" data-en="PORTFOLIO">PORTOFOLI</span>
+                    <h2 class="heading-large" data-sq="Projektet e përzgjedhura" data-en="Selected Projects">Projektet e përzgjedhura</h2>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all" data-sq="Të gjitha" data-en="All">Të gjitha</button>
+                    <button class="filter-btn" data-filter="interier" data-sq="Interier" data-en="Interior">Interier</button>
+                </div>
+            </div>
+
+            <div class="gallery-grid reveal" id="gallery-grid">
+                
+                <div class="gallery-item" data-category="fasada" data-title="Rezidenca 01" data-sub="Fasadë & Eksterier • 2026 • Shkup">
+                    <div class="gallery-img-wrap">
+                        <img src="exterior1.jpeg" class="gallery-img" alt="Rezidenca Exterior 01">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Fasadë &amp; Eksterier" data-en="Façade &amp; Exterior">Fasadë &amp; Eksterier</span>
+                        <h3 class="gallery-title">Rezidenca 01</h3>
+                        <p class="gallery-meta">2026 • Shkup</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="fasada" data-title="Objekt Strukturor" data-sub="Fasadë Strukturore • 2026 • Tetovë">
+                    <div class="gallery-img-wrap">
+                        <img src="exterior3.jpeg" class="gallery-img" alt="Fasadë Moderne 03">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Fasadë Strukturore" data-en="Structural Façade">Fasadë Strukturore</span>
+                        <h3 class="gallery-title">Objekt Strukturor</h3>
+                        <p class="gallery-meta">2026 • Tetovë</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="fasada" data-title="Vila 02" data-sub="Fasadë & Eksterier • 2025 • Gostivar">
+                    <div class="gallery-img-wrap">
+                        <img src="exterior2.jpeg" class="gallery-img" alt="Fasadë Premium 02">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Fasadë &amp; Eksterier" data-en="Façade &amp; Exterior">Fasadë &amp; Eksterier</span>
+                        <h3 class="gallery-title">Vila 02</h3>
+                        <p class="gallery-meta">2025 • Gostivar</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="interier" data-title="Ambient Minimalist" data-sub="Dizajn Interieri • 2025 • Shkup">
+                    <div class="gallery-img-wrap">
+                        <img src="interior2.jpeg" class="gallery-img" alt="Interior Design 02">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Dizajn Interieri" data-en="Interior Design">Dizajn Interieri</span>
+                        <h3 class="gallery-title">Ambient Minimalist</h3>
+                        <p class="gallery-meta">2025 • Shkup</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="interier" data-title="Rezidence Interier" data-sub="Dizajn Interieri • 2026 • Tetovë">
+                    <div class="gallery-img-wrap">
+                        <img src="interior3.jpeg" class="gallery-img" alt="Interior Design 03">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Dizajn Interieri" data-en="Interior Design">Dizajn Interieri</span>
+                        <h3 class="gallery-title">Rezidence Interier</h3>
+                        <p class="gallery-meta">2026 • Tetovë</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="interier" data-title="Sallon Ekzekutiv" data-sub="Lyerje Dekorative • 2025 • Kumanovë">
+                    <div class="gallery-img-wrap">
+                        <img src="interior4.jpeg" class="gallery-img" alt="Interior Design 04">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Lyerje Dekorative" data-en="Decorative Painting">Lyerje Dekorative</span>
+                        <h3 class="gallery-title">Sallon Ekzekutiv</h3>
+                        <p class="gallery-meta">2025 • Kumanovë</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="interier" data-title="Studio Privat" data-sub="Interier / Dekorime • 2026 • Gostivar">
+                    <div class="gallery-img-wrap">
+                        <img src="interior6.jpeg" class="gallery-img" alt="Interior Design 06">
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-tag" data-sq="Interier / Dekorime" data-en="Interior / Decorative">Interier / Dekorime</span>
+                        <h3 class="gallery-title">Studio Privat</h3>
+                        <p class="gallery-meta">2026 • Gostivar</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox-modal" id="lightbox-modal">
+        <button class="lightbox-close" id="lightbox-close">✕</button>
+        <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">‹</button>
+        <button class="lightbox-arrow lightbox-next" id="lightbox-next">›</button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <div class="lightbox-caption">
+                <h3 class="lightbox-title" id="lightbox-title"></h3>
+                <span class="lightbox-sub" id="lightbox-sub"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEFORE / AFTER COMPARISON (REDEFINED IDENTITY) -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="comparison-header reveal">
+                <span class="section-label" data-sq="TRANSFORMIMI" data-en="TRANSFORMATION">TRANSFORMIMI</span>
+                <h2 class="heading-large" data-sq="Nga një hapësirë ekzistuese në një identitet të ri" data-en="From an existing structure to a redefined identity">Nga një hapësirë ekzistuese në një identitet të ri</h2>
+            </div>
+
+            <div class="ba-slider-wrapper reveal">
+                <div class="ba-slider-container" id="ba-slider">
+                    <!-- Before Image (Base) -->
+                    <img src="exteriorbefore.png" class="ba-image" alt="Para Transformimit">
+                    <div class="ba-label ba-label-before" data-sq="PARA" data-en="BEFORE">PARA</div>
+
+                    <!-- After Image (Overlay Clip) -->
+                    <div class="ba-after-wrap" id="ba-after-wrap">
+                        <img src="exteriorafter.png" class="ba-image" id="ba-after-img" alt="Pas Transformimit">
+                        <div class="ba-label ba-label-after" data-sq="PAS" data-en="AFTER">PAS</div>
+                    </div>
+
+                    <!-- Fluid Draggable Divider -->
+                    <div class="ba-handle" id="ba-handle">
+                        <div class="ba-button">↔</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURAL CONSULTATION WITH LOCAL VIDEO BACKGROUND -->
+    <section class="architect-section" id="arkitektura">
+        <!-- Local Video Background -->
+        <div class="video-bg-container">
+            <video class="video-bg" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop">
+                <source src="background.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="container architect-container">
+            <div class="architect-box reveal">
+                <span class="section-label" data-sq="KONSULTIM PROFESIONAL" data-en="PROFESSIONAL CONSULTATION">KONSULTIM PROFESIONAL</span>
+                <h2 class="heading-large" style="margin-bottom: 1.5rem;" data-sq="Arkitektura fillon para se të fillojë puna." data-en="Architecture begins long before execution starts.">
+                    Arkitektura fillon para se të fillojë puna.
+                </h2>
+                <p class="text-muted" style="line-height: 1.8; margin-bottom: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto;" data-sq="Një fasadë ose interier premium kërkon më shumë se ekzekutim teknik—kërkon analizë hapësinore, zgjedhje të harmonizuar të materialeve dhe vizion arkitektonik. Arkitekti ynë ju udhëheq në çdo hap strategjik." data-en="A premium façade or interior requires more than technical execution—it demands spatial analysis, harmonious material curation, and architectural vision. Our architect guides every strategic step.">
+                    Një fasadë ose interier premium kërkon më shumë se ekzekutim teknik—kërkon analizë hapësinore, zgjedhje të harmonizuar të materialeve dhe vizion arkitektonik. Arkitekti ynë ju udhëheq në çdo hap strategjik.
+                </p>
+                <a href="#kontakt" class="btn btn-primary" style="margin-bottom: 3rem;" data-sq="Rezervo Konsultim" data-en="Book Consultation">Rezervo Konsultim</a>
+
+                <div class="architect-details">
+                    <h4>Besam Shaqiri</h4>
+                    <p data-sq="Arkitekt Profesionist" data-en="Professional Architect">Arkitekt Profesionist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK PROCESS -->
+    <section class="process" id="procesi">
+        <div class="container">
+            <div class="process-header reveal text-center" style="text-align: center;">
+                <span class="section-label" data-sq="METODOLOGJIA" data-en="METHODOLOGY">METODOLOGJIA</span>
+                <h2 class="heading-large" data-sq="Nga koncepti në realizim" data-en="From concept to completion">Nga koncepti në realizim</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-line">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">01</div>
+                        <h3 class="step-title" data-sq="Konsultimi" data-en="Consultation">Konsultimi</h3>
+                        <p class="step-desc" data-sq="Kuptimi i plotë i hapësirës, kërkesave specifike, stilit të preferuar dhe buxhetit të projektit." data-en="In-depth analysis of space requirements, client aesthetic preferences, and budget parameters.">Kuptimi i plotë i hapësirës, kërkesave specifike, stilit të preferuar dhe buxhetit të projektit.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">02</div>
+                        <h3 class="step-title" data-sq="Matjet &amp; Analiza" data-en="Measurements &amp; Analysis">Matjet &amp; Analiza</h3>
+                        <p class="step-desc" data-sq="Matje precize arkitektonike dhe analizë e detajuar e struktures ekzistuese në terren." data-en="Precise technical measurement and structural assessment on site.">Matje precize arkitektonike dhe analizë e detajuar e struktures ekzistuese në terren.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">03</div>
+                        <h3 class="step-title" data-sq="Koncepti &amp; Materialet" data-en="Concept &amp; Materials">Koncepti &amp; Materialet</h3>
+                        <p class="step-desc" data-sq="Përzgjedhja e paletës së ngjyrave, teksturave dekorative, produkteve të fasadës dhe detajeve estetike." data-en="Curating the palette of finishes, textures, insulation materials, and aesthetic details.">Përzgjedhja e paletës së ngjyrave, teksturave dekorative, produkteve të fasadës dhe detajeve estetike.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">04</div>
+                        <h3 class="step-title" data-sq="Projektimi" data-en="Architectural Design">Projektimi</h3>
+                        <p class="step-desc" data-sq="Hartimi i planit arkitektonik dhe vizualizimi i plotë i interierit apo eksterierit ku kërkohet." data-en="Architectural blueprinting and 3D visual rendering for interiors/exteriors when required.">Hartimi i planit arkitektonik dhe vizualizimi i plotë i interierit apo eksterierit ku kërkohet.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">05</div>
+                        <h3 class="step-title" data-sq="Realizimi" data-en="Execution">Realizimi</h3>
+                        <p class="step-desc" data-sq="Zbatimi i punimeve me disiplinë teknike, mjete profesionale dhe kontroll të vazhdueshëm." data-en="Meticulous execution on-site adhering to strict architectural and technical standards.">Zbatimi i punimeve me disiplinë teknike, mjete profesionale dhe kontroll të vazhdueshëm.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="step-number">06</div>
+                        <h3 class="step-title" data-sq="Dorëzimi" data-en="Final Handover">Dorëzimi</h3>
+                        <p class="step-desc" data-sq="Inspektimi përfundimtar me klientin dhe dorëzimi i hapësirës së transformuar plotësisht." data-en="Final joint quality inspection and complete handover of the redefined space.">Inspektimi përfundimtar me klientin dhe dorëzimi i hapësirës së transformuar plotësisht.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CRAFTSMANSHIP / MATERIALS GALLERY -->
+    <section class="materials">
+        <div class="container">
+            <div class="materials-header reveal">
+                <span class="section-label" data-sq="CRAFTSMANSHIP" data-en="CRAFTSMANSHIP">CRAFTSMANSHIP</span>
+                <h2 class="heading-large" data-sq="Detajet bëjnë diferencën." data-en="Details define excellence.">Detajet bëjnë diferencën.</h2>
+            </div>
+
+            <div class="materials-grid reveal">
+                <div class="material-card">
+                    <img src="https://fancyhouse-design.com/wp-content/uploads/2024/08/The-fireplace-in-this-modern-sitting-area-is-surrounded-by-a-mix-of-materials-adding-layers-of-depth-and-creativity-to-the-decor.jpg" alt="Decorative Textures">
+                    <div class="material-info">
+                        <h4 class="material-title" data-sq="Tekstura Dekorative" data-en="Decorative Textures">Tekstura Dekorative</h4>
+                    </div>
+                </div>
+
+                <div class="material-card">
+                    <img src="https://www.sistemal.com/en/wp-content/uploads/2026/06/How-is-Facade-Insulation-Done-in-Zero-Energy-Buildings.webp" alt="Insulated Façades">
+                    <div class="material-info">
+                        <h4 class="material-title" data-sq="Fasada me Termoizolim" data-en="Insulated Façades">Fasada me Termoizolim</h4>
+                    </div>
+                </div>
+
+                <div class="material-card">
+                    <img src="interior5.jpeg" alt="Plaster &amp; Matte Painting">
+                    <div class="material-info">
+                        <h4 class="material-title" data-sq="Gips &amp; Lyerje Matt" data-en="Plaster &amp; Matte Painting">Gips &amp; Lyerje Matt</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY ART-FIX -->
+    <section class="why-us">
+        <div class="container">
+            <span class="section-label" style="color: #666;" data-sq="STANDARDET TONA" data-en="OUR STANDARDS">STANDARDET TONA</span>
+            <h2 class="heading-large" data-sq="Pse të zgjidhni ART-FIX" data-en="Why Choose ART-FIX">Pse të zgjidhni ART-FIX</h2>
+
+            <div class="why-grid">
+                <div class="why-item reveal">
+                    <div class="why-number">01</div>
+                    <h3 class="why-title" data-sq="Qasje Profesionale" data-en="Professional Approach">Qasje Profesionale</h3>
+                    <p class="why-desc" data-sq="Mjeshtëri e verifikuar në zbatimin e çdo fasade apo lyerje dekorative." data-en="Tested master execution across all façade systems and specialized wall paints.">Mjeshtëri e verifikuar në zbatimin e çdo fasade apo lyerje dekorative.</p>
+                </div>
+
+                <div class="why-item reveal">
+                    <div class="why-number">02</div>
+                    <h3 class="why-title" data-sq="Konsultim Arkitektonik" data-en="Architectural Insight">Konsultim Arkitektonik</h3>
+                    <p class="why-desc" data-sq="Udhëheqje direkte nga arkitekt profesionist në zgjedhjen e ideve." data-en="Direct oversight and design guidance from professional architect Besam Shaqiri.">Udhëheqje direkte nga arkitekt profesionist në zgjedhjen e ideve.</p>
+                </div>
+
+                <div class="why-item reveal">
+                    <div class="why-number">03</div>
+                    <h3 class="why-title" data-sq="Punim Preciz" data-en="Precision Work">Punim Preciz</h3>
+                    <p class="why-desc" data-sq="Vëmendje absolute ndaj detajeve mikroskopike, këndeve dhe përfundimit." data-en="Absolute focus on refined edges, architectural angles, and flawless finishing.">Vëmendje absolute ndaj detajeve mikroskopike, këndeve dhe përfundimit.</p>
+                </div>
+
+                <div class="why-item reveal">
+                    <div class="why-number">04</div>
+                    <h3 class="why-title" data-sq="Dizajn i Personalizuar" data-en="Bespoke Design">Dizajn i Personalizuar</h3>
+                    <p class="why-desc" data-sq="Koncepte unike të përshtatura për karakterin e veçantë të çdo ndërtese." data-en="Unique concepts customized precisely to match the identity of each building.">Koncepte unike të përshtatura për karakterin e veçantë të çdo ndërtese.</p>
+                </div>
+
+                <div class="why-item reveal">
+                    <div class="why-number">05</div>
+                    <h3 class="why-title" data-sq="Interier + Eksterier" data-en="Interior + Exterior">Interier + Eksterier</h3>
+                    <p class="why-desc" data-sq="Harmoni e plotë mes pamjes së jashtme dhe ambienteve të brendshme." data-en="Complete visual harmony connecting exterior architecture with interior spaces.">Harmoni e plotë mes pamjes së jashtme dhe ambienteve të brendshme.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT CTA BANNER -->
+    <section class="cta-banner">
+        <div class="cta-bg">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop" alt="Luxury Architecture">
+        </div>
+        <div class="container cta-content reveal">
+            <h2 class="heading-huge" style="margin-bottom: 1.5rem;" data-sq="Keni një hapësirë.<br><span class='text-accent'>Ne kemi një vizion.</span>" data-en="You have a space.<br><span class='text-accent'>We have a vision.</span>">
+                Keni një hapësirë.<br><span class="text-accent">Ne kemi një vizion.</span>
+            </h2>
+            <p class="text-muted" style="font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;" data-sq="Na tregoni projektin tuaj dhe le ta transformojmë së bashku në një vepër arkitektonike." data-en="Share your project vision with us and let us transform it into an architectural statement.">
+                Na tregoni projektin tuaj dhe le ta transformojmë së bashku në një vepër arkitektonike.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#kontakt" class="btn btn-primary" data-sq="Fillo Projektin" data-en="Start Your Project">Fillo Projektin</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <div class="contact-info reveal">
+                    <div>
+                        <span class="section-label" data-sq="NA KONTAKTONI" data-en="GET IN TOUCH">NA KONTAKTONI</span>
+                        <h2 class="heading-large" data-sq="Le të flasim për projektin tuaj." data-en="Let's discuss your vision.">Le të flasim për projektin tuaj.</h2>
+                    </div>
+
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-label" data-sq="PRONAR / SHEF" data-en="OWNER / CHIEF">PRONAR / SHEF</span>
+                            <span class="contact-detail-value">Hasan Shaqiri</span>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-label" data-sq="ARKITEKT" data-en="ARCHITECT">ARKITEKT</span>
+                            <span class="contact-detail-value">Besam Shaqiri</span>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-label" data-sq="TELEFONI" data-en="PHONE">TELEFONI</span>
+                            <a href="tel:+38978374838" class="contact-detail-value">+389 78 374 838</a>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-label">EMAIL</span>
+                            <a href="mailto:besamshaqiri00@gmail.com" class="contact-detail-value">besamshaqiri00@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrap reveal">
+                    <form class="contact-form" id="artfix-contact-form" novalidate>
+                        
+                        <div class="form-group">
+                            <input type="text" name="user_name" class="form-input" id="name" placeholder=" " required>
+                            <label for="name" class="form-label" data-sq="Emri dhe Mbiemri" data-en="Full Name">Emri dhe Mbiemri</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="tel" name="user_phone" class="form-input" id="phone" placeholder=" ">
+                            <label for="phone" class="form-label" data-sq="Numri i Telefonit" data-en="Phone Number">Numri i Telefonit</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="user_email" class="form-input" id="email" placeholder=" " required>
+                            <label for="email" class="form-label">Email</label>
+                        </div>
+
+                        <div class="form-group">
+                            <select name="service_type" class="form-select" id="service-type" required>
+                                <option value="" disabled selected data-sq="Lloji i Projektit" data-en="Select Project Type">Lloji i Projektit</option>
+                                <option value="Fasada & Eksterier" data-sq="Fasada & Eksterier" data-en="Façades & Exterior">Fasada & Eksterier</option>
+                                <option value="Lyerje & Dekorime" data-sq="Lyerje & Dekorime" data-en="Painting & Decoration">Lyerje & Dekorime</option>
+                                <option value="Dizajn Interieri" data-sq="Dizajn Interieri" data-en="Interior Design">Dizajn Interieri</option>
+                                <option value="Dizajn Eksterieri" data-sq="Dizajn Eksterieri" data-en="Exterior Design">Dizajn Eksterieri</option>
+                                <option value="Konsultim Arkitektonik" data-sq="Konsultim Arkitektonik" data-en="Architectural Consultation">Konsultim Arkitektonik</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="message" class="form-textarea" id="message" placeholder=" " required></textarea>
+                            <label for="message" class="form-label" data-sq="Mesazhi Juaj / Detajet e Projektit" data-en="Your Message / Project Details">Mesazhi Juaj / Detajet e Projektit</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="submit-btn" style="width: 100%;" data-sq="Dërgo Kërkesën" data-en="Submit Request">Dërgo Kërkesën</button>
+                        
+                        <div class="form-status" id="form-status"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-brand">
+                    <a href="#" class="brand-logo">
+                        ARTFIX<span>.</span>
+                    </a>
+                    <p data-sq="Kompanie profesionale e specializuar në fasada, lyerje dekorative, interier, eksterier dhe konsultim arkitektonik." data-en="Professional studio specializing in luxury façades, decorative finishes, interior/exterior design, and architectural consulting.">
+                        Kompanie profesionale e specializuar në fasada, lyerje dekorative, interier, eksterier dhe konsultim arkitektonik.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title" data-sq="NAVIGIMI" data-en="NAVIGATION">NAVIGIMI</h4>
+                    <div class="footer-links">
+                        <a href="#ballina" class="footer-link" data-sq="Ballina" data-en="Home">Ballina</a>
+                        <a href="#rreth-nesh" class="footer-link" data-sq="Rreth Nesh" data-en="About">Rreth Nesh</a>
+                        <a href="#sherbimet" class="footer-link" data-sq="Shërbimet" data-en="Services">Shërbimet</a>
+                        <a href="#projektet" class="footer-link" data-sq="Projektet" data-en="Projects">Projektet</a>
+                        <a href="#arkitektura" class="footer-link" data-sq="Arkitektura" data-en="Architecture">Arkitektura</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title" data-sq="EKIPA" data-en="TEAM">EKIPA</h4>
+                    <div class="footer-links">
+                        <span style="color: var(--text-light);">Hasan Shaqiri</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);" data-sq="Pronar / Shef" data-en="Owner / Chief">Pronar / Shef</span>
+                        <br>
+                        <span style="color: var(--text-light);">Besam Shaqiri</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);" data-sq="Arkitekt Profesionist" data-en="Professional Architect">Arkitekt Profesionist</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 ARTFIX. <span data-sq="Të gjitha të drejtat e rezervuara." data-en="All rights reserved.">Të gjitha të drejtat e rezervuara.</span></div>
+                <div class="back-to-top" id="back-to-top">
+                    <span data-sq="Kthehu lart" data-en="Back to top">Kthehu lart</span> ↑
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* --- TASTEFUL PAGE-LOAD ANIMATION --- */
+            const loader = document.getElementById('page-loader');
+            setTimeout(() => {
+                if (loader) loader.classList.add('loaded');
+                document.body.classList.add('page-loaded');
+            }, 300);
+
+            if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            }
+
+            /* --- LANGUAGE SWITCHER LOGIC --- */
+            let currentLang = 'sq';
+            const langSqBtn = document.getElementById('lang-sq');
+            const langEnBtn = document.getElementById('lang-en');
+
+            function setLanguage(lang) {
+                currentLang = lang;
+                if(lang === 'sq') {
+                    langSqBtn.classList.add('active');
+                    langEnBtn.classList.remove('active');
+                } else {
+                    langEnBtn.classList.add('active');
+                    langSqBtn.classList.remove('active');
+                }
+
+                document.querySelectorAll('[data-sq]').forEach(el => {
+                    const text = el.getAttribute(`data-${lang}`);
+                    if(text) {
+                        if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.placeholder = text;
+                        } else {
+                            el.innerHTML = text;
+                        }
+                    }
+                });
+            }
+
+            langSqBtn.addEventListener('click', () => setLanguage('sq'));
+            langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+            /* --- CUSTOM CURSOR (DESKTOP) --- */
+            const cursor = document.getElementById('cursor');
+            const follower = document.getElementById('cursor-follower');
+
+            if (window.innerWidth >= 1024 && cursor && follower) {
+                let mouseX = 0, mouseY = 0;
+                let posX = 0, posY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                });
+
+                function renderCursor() {
+                    posX += (mouseX - posX) * 0.15;
+                    posY += (mouseY - posY) * 0.15;
+                    follower.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+                    requestAnimationFrame(renderCursor);
+                }
+                renderCursor();
+
+                const hoverElements = document.querySelectorAll('a, button, .service-item, .gallery-item, .filter-btn');
+                hoverElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                });
+            }
+
+            /* --- NAVBAR & MOBILE MENU INTERACTION --- */
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            /* --- INTERACTIVE SERVICES SHOWCASE --- */
+            const serviceItems = document.querySelectorAll('.service-item');
+            const previewImgs = document.querySelectorAll('.preview-img');
+
+            serviceItems.forEach((item) => {
+                item.addEventListener('mouseenter', () => {
+                    const idx = item.getAttribute('data-index');
+                    
+                    serviceItems.forEach(s => s.classList.remove('active'));
+                    previewImgs.forEach(img => img.classList.remove('active'));
+
+                    item.classList.add('active');
+                    if(previewImgs[idx]) {
+                        previewImgs[idx].classList.add('active');
+                    }
+                });
+            });
+
+            /* --- REDESIGNED GALLERY FILTERING & LIGHTBOX --- */
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            // Filter logic
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            item.classList.remove('hide');
+                            setTimeout(() => { item.style.opacity = '1'; }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.classList.add('hide');
+                        }
+                    });
+                });
+            });
+
+            // Lightbox functionality
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxSub = document.getElementById('lightbox-sub');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const lightboxPrev = document.getElementById('lightbox-prev');
+            const lightboxNext = document.getElementById('lightbox-next');
+
+            let visibleItems = [];
+            let currentIndex = 0;
+
+            function updateVisibleItems() {
+                visibleItems = Array.from(galleryItems).filter(item => !item.classList.contains('hide'));
+            }
+
+            function openLightbox(index) {
+                updateVisibleItems();
+                if (visibleItems.length === 0) return;
+                
+                currentIndex = index;
+                showLightboxItem(currentIndex);
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function showLightboxItem(index) {
+                const item = visibleItems[index];
+                if (!item) return;
+
+                const img = item.querySelector('.gallery-img');
+                lightboxImg.src = img.src;
+                lightboxTitle.textContent = item.getAttribute('data-title') || '';
+                lightboxSub.textContent = item.getAttribute('data-sub') || '';
+            }
+
+            galleryItems.forEach((item) => {
+                item.addEventListener('click', () => {
+                    updateVisibleItems();
+                    const idx = visibleItems.indexOf(item);
+                    if (idx !== -1) openLightbox(idx);
+                });
+            });
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            lightboxNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % visibleItems.length;
+                showLightboxItem(currentIndex);
+            });
+
+            lightboxPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+                showLightboxItem(currentIndex);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') lightboxNext.click();
+                if (e.key === 'ArrowLeft') lightboxPrev.click();
+            });
+
+            /* --- FLUID BEFORE / AFTER SLIDER --- */
+            const baContainer = document.getElementById('ba-slider');
+            const baAfterWrap = document.getElementById('ba-after-wrap');
+            const baAfterImg = document.getElementById('ba-after-img');
+            const baHandle = document.getElementById('ba-handle');
+
+            if (baContainer && baAfterWrap && baHandle && baAfterImg) {
+                let isDragging = false;
+
+                function syncImageDimensions() {
+                    const rect = baContainer.getBoundingClientRect();
+                    baAfterImg.style.width = `${rect.width}px`;
+                }
+
+                window.addEventListener('resize', syncImageDimensions);
+                syncImageDimensions();
+
+                function updateSliderPosition(x) {
+                    const rect = baContainer.getBoundingClientRect();
+                    let position = ((x - rect.left) / rect.width) * 100;
+
+                    if (position < 0) position = 0;
+                    if (position > 100) position = 100;
+
+                    baAfterWrap.style.width = `${position}%`;
+                    baHandle.style.left = `${position}%`;
+                }
+
+                baHandle.addEventListener('mousedown', () => isDragging = true);
+                window.addEventListener('mouseup', () => isDragging = false);
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    updateSliderPosition(e.clientX);
+                });
+
+                baHandle.addEventListener('touchstart', () => isDragging = true, { passive: true });
+                window.addEventListener('touchend', () => isDragging = false);
+                window.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    updateSliderPosition(e.touches[0].clientX);
+                }, { passive: true });
+            }
+
+            /* --- TIMELINE SCROLL ANIMATION --- */
+            const timelineProgress = document.getElementById('timeline-progress');
+            const timeline = document.querySelector('.timeline');
+
+            if (timeline && timelineProgress) {
+                window.addEventListener('scroll', () => {
+                    const rect = timeline.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    
+                    if (rect.top < windowHeight && rect.bottom > 0) {
+                        const progress = ((windowHeight - rect.top) / (rect.height + windowHeight)) * 100;
+                        const clampedProgress = Math.min(Math.max(progress, 0), 100);
+                        timelineProgress.style.height = `${clampedProgress}%`;
+                    }
+                });
+            }
+
+            /* --- INTERSECTION OBSERVER FOR REVEAL ANIMATIONS --- */
+            const observerOptions = {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            /* --- BACK TO TOP --- */
+            const backToTop = document.getElementById('back-to-top');
+            if(backToTop) {
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            /* --- FORM HANDLING --- */
+            const contactForm = document.getElementById('artfix-contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+
+            if(contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const nameInput = document.getElementById('name').value.trim();
+                    const emailInput = document.getElementById('email').value.trim();
+                    const serviceInput = document.getElementById('service-type').value;
+                    const messageInput = document.getElementById('message').value.trim();
+
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    if (!nameInput || !emailInput || !serviceInput || !messageInput) {
+                        showStatus(
+                            currentLang === 'sq' ? 'Ju lutemi plotësoni të gjitha fushat e kërkuara.' : 'Please fill in all required fields.',
+                            'error'
+                        );
+                        return;
+                    }
+
+                    if (!emailRegex.test(emailInput)) {
+                        showStatus(
+                            currentLang === 'sq' ? 'Ju lutemi vendosni një adresë email-i të vlefshme.' : 'Please enter a valid email address.',
+                            'error'
+                        );
+                        return;
+                    }
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerText = currentLang === 'sq' ? 'Duke dërguar...' : 'Sending...';
+                    formStatus.className = 'form-status';
+                    formStatus.style.display = 'none';
+
+                    if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this)
+                            .then(() => {
+                                handleSuccess();
+                            }, (error) => {
+                                handleError();
+                            });
+                    } else {
+                        setTimeout(() => {
+                            handleSuccess();
+                        }, 1200);
+                    }
+                });
+            }
+
+            function handleSuccess() {
+                showStatus(
+                    currentLang === 'sq' ? 'Kërkesa juaj u dërgua me sukses! Do t\'ju kontaktojmë së shpejti.' : 'Your request was sent successfully! We will contact you soon.',
+                    'success'
+                );
+                contactForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = currentLang === 'sq' ? 'Dërgo Kërkesën' : 'Submit Request';
+            }
+
+            function handleError() {
+                showStatus(
+                    currentLang === 'sq' ? 'Pati një gabim gjatë dërgimit. Ju lutemi provoni përsëri ose na telefononi direkt.' : 'An error occurred during sending. Please try again or call us directly.',
+                    'error'
+                );
+                submitBtn.disabled = false;
+                submitBtn.innerText = currentLang === 'sq' ? 'Dërgo Kërkesën' : 'Submit Request';
+            }
+
+            function showStatus(msg, type) {
+                formStatus.innerText = msg;
+                formStatus.className = `form-status ${type}`;
+            }
+
+        });
+    </script>
+</body>
+</html>
